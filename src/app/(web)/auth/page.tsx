@@ -1,10 +1,11 @@
 "use client";
-import { ChangeEvent, useState, FormEvent } from "react";
+import { ChangeEvent, useState, FormEvent, useEffect } from "react";
 import { AiFillGithub } from "react-icons/ai";
 import { FcGoogle } from "react-icons/fc";
 import { signUp } from "next-auth-sanity/client";
 import { signIn, useSession } from "next-auth/react";
 import toast from "react-hot-toast";
+import { useRouter } from "next/navigation";
 
 const defaultFormData = {
   email: "",
@@ -23,6 +24,28 @@ const Auth = () => {
     setFormData({ ...formData, [name]: value }); //newone
   };
 
+  const { data: session } = useSession();
+  const router = useRouter();
+  console.log(session);
+
+  useEffect(() => {
+    if (session) {
+      router.push("/");
+    }
+  }, [router, session]);
+
+  // Handle Logins
+  const loginHandler = async () => {
+    try {
+      await signIn();
+      router.push("/");
+    } catch (error) {
+      console.log(error);
+      toast.error("SOmething went wrong");
+    }
+  };
+
+  // Handle Form Submission
   const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     try {
@@ -48,9 +71,15 @@ const Auth = () => {
           </h1>
           <p>OR</p>
           <span className="inline-flex items-center ">
-            <AiFillGithub className="mr-3 text-4xl cursor-pointer text-black dark:text-yellow-300" />
+            <AiFillGithub
+              onClick={loginHandler}
+              className="mr-3 text-4xl cursor-pointer text-black dark:text-yellow-300"
+            />
             {" | "}
-            <FcGoogle className="ml-3 text-4xl cursor-pointer" />
+            <FcGoogle
+              onClick={loginHandler}
+              className="ml-3 text-4xl cursor-pointer"
+            />
           </span>
         </div>
 
@@ -93,7 +122,9 @@ const Auth = () => {
             Sign Up
           </button>
 
-          <button className="text-bl700 underline">Login</button>
+          <button onClick={loginHandler} className="text-bl700 underline">
+            Login
+          </button>
         </form>
       </div>
     </section>
