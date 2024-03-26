@@ -16,7 +16,7 @@ type Props = {
   specialNote: string;
   calcMinCheckoutDate: () => Date | null;
   adults: number;
-  children: number;
+  nochildren: number;
   handleBookNowClick: () => void;
   isBooked: boolean;
 };
@@ -33,7 +33,7 @@ const BookRoomCta: FC<Props> = (props) => {
     setCheckoutDate,
     calcMinCheckoutDate,
     adults,
-    children,
+    nochildren,
     setChildren,
     setAdults,
   } = props;
@@ -132,7 +132,7 @@ const BookRoomCta: FC<Props> = (props) => {
           <input
             type="number"
             id="child"
-            value={children}
+            value={nochildren}
             onChange={(e) => setChildren(+e.target.value)}
             min={0}
             max={5}

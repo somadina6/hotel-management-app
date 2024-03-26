@@ -188,7 +188,7 @@ const RoomDetails = (props: { params: { slug: string } }) => {
               setAdults={setAdults}
               adults={adults}
               setChildren={setChildren}
-              children={children}
+              nochildren={children}
               isBooked={room.isBooked}
               handleBookNowClick={handleBookNowClick}
             />
