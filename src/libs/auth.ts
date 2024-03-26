@@ -31,7 +31,7 @@ export const authOptions: NextAuthOptions = {
       }`,
         { email: userEmail }
       );
-      console.log(userIdObject);
+      // console.log(userIdObject);
       return {
         ...session,
         user: {

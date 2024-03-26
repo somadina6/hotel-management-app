@@ -33,7 +33,7 @@ export default function RootLayout({
         <NextAuthProvider>
           <ThemeProvider>
             <Toast />
-            <main className="font-normal">
+            <main className="font-normal px-12">
               <Header />
               {children}
               <Footer />
